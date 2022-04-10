@@ -17,9 +17,15 @@ var server = http.createServer(function(request, response) {
     var query = parsedUrl.query
     var method = request.method
 
+
     /******** 从这里开始看，上面不要看 ************/
 
     console.log('有个傻子发请求过来啦！路径（带查询参数）为：' + pathWithQuery)
+    console.log("method: " + method)
+    console.log("request.headers为:")
+    console.log(request.headers)
+
+
 
     if (path === '/') {
         response.statusCode = 200
@@ -31,6 +37,7 @@ var server = http.createServer(function(request, response) {
         </head>
         <body>
             <h1>node.js初体验</h1>
+            <script src="/y"></script>
         </body>
         `)
         response.end()
@@ -39,10 +46,13 @@ var server = http.createServer(function(request, response) {
         response.setHeader('Content-Type', 'text/css;charset=utf-8')
         response.write(`h1{color: red;}`)
         response.end()
+    } else if (path === '/y') {
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
+        response.write(`console.log('这是JS内容')`)
+        response.end()
     } else {
         response.statusCode = 404
-        response.setHeader('Content-Type', 'text/html;charset=utf-8')
-        response.write(`你输入的路径不存在对应的内容`)
         response.end()
     }
 
